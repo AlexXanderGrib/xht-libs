@@ -1,9 +1,47 @@
 {
-  
-  
   "version": 2,
-  
-  "projects": {},
+  "projects": {
+    "safe-math": {
+      "root": "packages/safe-math",
+      "sourceRoot": "packages/safe-math/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/safe-math/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/packages/safe-math"
+          ],
+          "options": {
+            "jestConfig": "packages/safe-math/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/packages/safe-math",
+            "tsConfig": "packages/safe-math/tsconfig.lib.json",
+            "packageJson": "packages/safe-math/package.json",
+            "main": "packages/safe-math/src/index.ts",
+            "assets": [
+              "packages/safe-math/*.md"
+            ]
+          }
+        }
+      }
+    }
+  },
   "cli": {
     "defaultCollection": "@nrwl/workspace"
   }
