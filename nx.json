@@ -1,6 +1,6 @@
 {
   "npmScope": "xxhax",
-  "affected": { "defaultBase": "master" },
+  "affected": { "defaultBase": "main" },
   "implicitDependencies": {
     "workspace.json": "*",
     "package.json": { "dependencies": "*", "devDependencies": "*" },
@@ -15,6 +15,10 @@
       "options": { "cacheableOperations": ["build", "lint", "test", "e2e"] }
     }
   },
-  "projects": { "safe-math": { "tags": [] }, "sign": { "tags": [] } },
+  "projects": {
+    "safe-math": { "tags": [] },
+    "sign": { "tags": [] },
+    "bablo": { "tags": [] }
+  },
   "workspaceLayout": { "appsDir": "packages", "libsDir": "packages" }
 }

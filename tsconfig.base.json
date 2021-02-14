@@ -7,7 +7,7 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "importHelpers": true,
+    "importHelpers": false,
     "target": "es2015",
     "module": "esnext",
     "lib": ["es2017", "dom"],
@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@xxhax/safe-math": ["packages/safe-math/src/index.ts"],
-      "@xxhax/sign": ["packages/sign/src/index.ts"]
+      "@xxhax/sign": ["packages/sign/src/index.ts"],
+      "@xxhax/bablo": ["packages/bablo/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
