@@ -1,3 +1,3 @@
 module.exports = {
-  projects: ['<rootDir>/packages/safe-math'],
+  projects: ['<rootDir>/packages/safe-math', '<rootDir>/packages/sign'],
 };

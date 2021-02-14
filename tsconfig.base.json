@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@xxhax/safe-math": ["packages/safe-math/src/index.ts"]
+      "@xxhax/safe-math": ["packages/safe-math/src/index.ts"],
+      "@xxhax/sign": ["packages/sign/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

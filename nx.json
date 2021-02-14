@@ -15,6 +15,6 @@
       "options": { "cacheableOperations": ["build", "lint", "test", "e2e"] }
     }
   },
-  "projects": { "safe-math": { "tags": [] } },
+  "projects": { "safe-math": { "tags": [] }, "sign": { "tags": [] } },
   "workspaceLayout": { "appsDir": "packages", "libsDir": "packages" }
 }

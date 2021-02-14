@@ -40,6 +40,46 @@
           }
         }
       }
+    },
+    "sign": {
+      "root": "packages/sign",
+      "sourceRoot": "packages/sign/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/sign/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/packages/sign"
+          ],
+          "options": {
+            "jestConfig": "packages/sign/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/packages/sign",
+            "tsConfig": "packages/sign/tsconfig.lib.json",
+            "packageJson": "packages/sign/package.json",
+            "main": "packages/sign/src/index.ts",
+            "assets": [
+              "packages/sign/*.md"
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {
