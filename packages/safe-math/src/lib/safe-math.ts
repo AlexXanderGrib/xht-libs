@@ -107,3 +107,14 @@ export function random(
 
   return calculate(min, max, (a, b) => randomInt(a, b), p);
 }
+
+const SafeMath = {
+  round,
+  random,
+  precision,
+  sub,
+  sum,
+  calculate,
+};
+
+export default SafeMath;
