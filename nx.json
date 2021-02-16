@@ -18,7 +18,11 @@
   "projects": {
     "safe-math": { "tags": [] },
     "sign": { "tags": [] },
-    "bablo": { "tags": [] }
+    "bablo": { "tags": [] },
+
+    "luhn": { "tags": [] },
+    "match": { "tags": [] },
+    "validators": { "tags": [] }
   },
   "workspaceLayout": { "appsDir": "packages", "libsDir": "packages" }
 }

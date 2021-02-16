@@ -26,7 +26,10 @@
     "help": "nx help"
   },
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "node-fetch": "^2.6.1",
+    "runtypes": "^5.0.1"
+  },
   "devDependencies": {
     "@nrwl/cli": "11.2.12",
     "@nrwl/eslint-plugin-nx": "11.2.12",
@@ -37,6 +40,7 @@
     "@nrwl/workspace": "11.2.12",
     "@types/jest": "26.0.8",
     "@types/node": "12.12.38",
+    "@types/node-fetch": "^2.5.8",
     "@typescript-eslint/eslint-plugin": "4.3.0",
     "@typescript-eslint/parser": "4.3.0",
     "dotenv": "6.2.0",

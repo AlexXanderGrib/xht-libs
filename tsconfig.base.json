@@ -8,17 +8,38 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": false,
-    "target": "es2015",
+    "target": "es2018",
     "module": "esnext",
-    "lib": ["es2017", "dom"],
+    "lib": [
+      "es2019",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@xxhax/safe-math": ["packages/safe-math/src/index.ts"],
-      "@xxhax/sign": ["packages/sign/src/index.ts"],
-      "@xxhax/bablo": ["packages/bablo/src/index.ts"]
+      "@xxhax/safe-math": [
+        "packages/safe-math/src/index.ts"
+      ],
+      "@xxhax/sign": [
+        "packages/sign/src/index.ts"
+      ],
+      "@xxhax/bablo": [
+        "packages/bablo/src/index.ts"
+      ],
+      "@xxhax/luhn": [
+        "packages/luhn/src/index.ts"
+      ],
+      "@xxhax/match": [
+        "packages/match/src/index.ts"
+      ],
+      "@xxhax/validators": [
+        "packages/validators/src/index.ts"
+      ]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }
