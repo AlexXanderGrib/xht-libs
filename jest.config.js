@@ -7,5 +7,7 @@ module.exports = {
     '<rootDir>/packages/match',
     '<rootDir>/packages/validators',
     '<rootDir>/packages/vk-storage-wrapper',
+    '<rootDir>/packages/time',
+    '<rootDir>/packages/emoji',
   ],
 };

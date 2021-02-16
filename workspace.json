@@ -280,6 +280,86 @@
           }
         }
       }
+    },
+    "time": {
+      "root": "packages/time",
+      "sourceRoot": "packages/time/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/time/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/packages/time"
+          ],
+          "options": {
+            "jestConfig": "packages/time/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/packages/time",
+            "tsConfig": "packages/time/tsconfig.lib.json",
+            "packageJson": "packages/time/package.json",
+            "main": "packages/time/src/index.ts",
+            "assets": [
+              "packages/time/*.md"
+            ]
+          }
+        }
+      }
+    },
+    "emoji": {
+      "root": "packages/emoji",
+      "sourceRoot": "packages/emoji/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/emoji/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/packages/emoji"
+          ],
+          "options": {
+            "jestConfig": "packages/emoji/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/packages/emoji",
+            "tsConfig": "packages/emoji/tsconfig.lib.json",
+            "packageJson": "packages/emoji/package.json",
+            "main": "packages/emoji/src/index.ts",
+            "assets": [
+              "packages/emoji/*.md"
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {

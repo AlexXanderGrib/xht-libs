@@ -21,7 +21,9 @@
       "@xxhax/luhn": ["packages/luhn/src/index.ts"],
       "@xxhax/match": ["packages/match/src/index.ts"],
       "@xxhax/validators": ["packages/validators/src/index.ts"],
-      "@xxhax/vk-storage-wrapper": ["packages/vk-storage-wrapper/src/index.ts"]
+      "@xxhax/vk-storage-wrapper": ["packages/vk-storage-wrapper/src/index.ts"],
+      "@xxhax/time": ["packages/time/src/index.ts"],
+      "@xxhax/emoji": ["packages/emoji/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

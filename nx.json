@@ -22,7 +22,9 @@
     "luhn": { "tags": [] },
     "match": { "tags": [] },
     "validators": { "tags": [] },
-    "vk-storage-wrapper": { "tags": [] }
+    "vk-storage-wrapper": { "tags": [] },
+    "time": { "tags": [] },
+    "emoji": { "tags": [] }
   },
   "workspaceLayout": { "appsDir": "packages", "libsDir": "packages" }
 }
