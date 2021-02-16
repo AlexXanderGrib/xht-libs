@@ -1,11 +1,19 @@
-type GetKeysParams = { user_id?: number; offset?: number; count?: number };
-type GetKeysResponse = string[];
+export type GetKeysParams = {
+  user_id?: number;
+  offset?: number;
+  count?: number;
+};
+export type GetKeysResponse = string[];
 
-type GetParams = { user_id?: number; key?: string; keys?: string[] | string };
-type GetResponse = { key: string; value: string }[];
+export type GetParams = {
+  user_id?: number;
+  key?: string;
+  keys?: string[] | string;
+};
+export type GetResponse = { key: string; value: string }[];
 
-type SetParams = { user_id?: number; key: string; value?: string };
-type SetResponse = 1;
+export type SetParams = { user_id?: number; key: string; value?: string };
+export type SetResponse = 1;
 
 export interface VkApiStorage {
   getKeys(params: GetKeysParams): Promise<GetKeysResponse>;
@@ -13,7 +21,7 @@ export interface VkApiStorage {
   set(params: SetParams): Promise<SetResponse>;
 }
 
-type ExecuteParams = { code: string };
+export type ExecuteParams = { code: string };
 
 export interface VkApi {
   storage: VkApiStorage;
