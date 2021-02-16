@@ -6,5 +6,6 @@ module.exports = {
     '<rootDir>/packages/luhn',
     '<rootDir>/packages/match',
     '<rootDir>/packages/validators',
+    '<rootDir>/packages/vk-storage-wrapper',
   ],
 };

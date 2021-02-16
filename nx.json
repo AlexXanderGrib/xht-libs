@@ -19,10 +19,10 @@
     "safe-math": { "tags": [] },
     "sign": { "tags": [] },
     "bablo": { "tags": [] },
-
     "luhn": { "tags": [] },
     "match": { "tags": [] },
-    "validators": { "tags": [] }
+    "validators": { "tags": [] },
+    "vk-storage-wrapper": { "tags": [] }
   },
   "workspaceLayout": { "appsDir": "packages", "libsDir": "packages" }
 }

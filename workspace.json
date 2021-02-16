@@ -9,12 +9,16 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packages/safe-math/**/*.ts"]
+            "lintFilePatterns": [
+              "packages/safe-math/**/*.ts"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/safe-math"],
+          "outputs": [
+            "coverage/packages/safe-math"
+          ],
           "options": {
             "jestConfig": "packages/safe-math/jest.config.js",
             "passWithNoTests": true
@@ -22,13 +26,17 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/packages/safe-math",
             "tsConfig": "packages/safe-math/tsconfig.lib.json",
             "packageJson": "packages/safe-math/package.json",
             "main": "packages/safe-math/src/index.ts",
-            "assets": ["packages/safe-math/*.md"]
+            "assets": [
+              "packages/safe-math/*.md"
+            ]
           }
         }
       }
@@ -41,12 +49,16 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packages/sign/**/*.ts"]
+            "lintFilePatterns": [
+              "packages/sign/**/*.ts"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/sign"],
+          "outputs": [
+            "coverage/packages/sign"
+          ],
           "options": {
             "jestConfig": "packages/sign/jest.config.js",
             "passWithNoTests": true
@@ -54,13 +66,17 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/packages/sign",
             "tsConfig": "packages/sign/tsconfig.lib.json",
             "packageJson": "packages/sign/package.json",
             "main": "packages/sign/src/index.ts",
-            "assets": ["packages/sign/*.md"]
+            "assets": [
+              "packages/sign/*.md"
+            ]
           }
         }
       }
@@ -73,12 +89,16 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packages/bablo/**/*.ts"]
+            "lintFilePatterns": [
+              "packages/bablo/**/*.ts"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/bablo"],
+          "outputs": [
+            "coverage/packages/bablo"
+          ],
           "options": {
             "jestConfig": "packages/bablo/jest.config.js",
             "passWithNoTests": true
@@ -86,18 +106,21 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/packages/bablo",
             "tsConfig": "packages/bablo/tsconfig.lib.json",
             "packageJson": "packages/bablo/package.json",
             "main": "packages/bablo/src/index.ts",
-            "assets": ["packages/bablo/*.md"]
+            "assets": [
+              "packages/bablo/*.md"
+            ]
           }
         }
       }
     },
-
     "luhn": {
       "root": "packages/luhn",
       "sourceRoot": "packages/luhn/src",
@@ -106,12 +129,16 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packages/luhn/**/*.ts"]
+            "lintFilePatterns": [
+              "packages/luhn/**/*.ts"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/luhn"],
+          "outputs": [
+            "coverage/packages/luhn"
+          ],
           "options": {
             "jestConfig": "packages/luhn/jest.config.js",
             "passWithNoTests": true
@@ -119,13 +146,17 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/packages/luhn",
             "tsConfig": "packages/luhn/tsconfig.lib.json",
             "packageJson": "packages/luhn/package.json",
             "main": "packages/luhn/src/index.ts",
-            "assets": ["packages/luhn/*.md"]
+            "assets": [
+              "packages/luhn/*.md"
+            ]
           }
         }
       }
@@ -138,12 +169,16 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packages/match/**/*.ts"]
+            "lintFilePatterns": [
+              "packages/match/**/*.ts"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/match"],
+          "outputs": [
+            "coverage/packages/match"
+          ],
           "options": {
             "jestConfig": "packages/match/jest.config.js",
             "passWithNoTests": true
@@ -151,13 +186,17 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/packages/match",
             "tsConfig": "packages/match/tsconfig.lib.json",
             "packageJson": "packages/match/package.json",
             "main": "packages/match/src/index.ts",
-            "assets": ["packages/match/*.md"]
+            "assets": [
+              "packages/match/*.md"
+            ]
           }
         }
       }
@@ -170,12 +209,16 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packages/validators/**/*.ts"]
+            "lintFilePatterns": [
+              "packages/validators/**/*.ts"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/validators"],
+          "outputs": [
+            "coverage/packages/validators"
+          ],
           "options": {
             "jestConfig": "packages/validators/jest.config.js",
             "passWithNoTests": true
@@ -183,13 +226,57 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/packages/validators",
             "tsConfig": "packages/validators/tsconfig.lib.json",
             "packageJson": "packages/validators/package.json",
             "main": "packages/validators/src/index.ts",
-            "assets": ["packages/validators/*.md"]
+            "assets": [
+              "packages/validators/*.md"
+            ]
+          }
+        }
+      }
+    },
+    "vk-storage-wrapper": {
+      "root": "packages/vk-storage-wrapper",
+      "sourceRoot": "packages/vk-storage-wrapper/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/vk-storage-wrapper/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/packages/vk-storage-wrapper"
+          ],
+          "options": {
+            "jestConfig": "packages/vk-storage-wrapper/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/packages/vk-storage-wrapper",
+            "tsConfig": "packages/vk-storage-wrapper/tsconfig.lib.json",
+            "packageJson": "packages/vk-storage-wrapper/package.json",
+            "main": "packages/vk-storage-wrapper/src/index.ts",
+            "assets": [
+              "packages/vk-storage-wrapper/*.md"
+            ]
           }
         }
       }
