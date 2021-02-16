@@ -23,7 +23,9 @@ type Mapping<K, V> = Iterable<[Matcher<K>, V]>;
 function useMatcher<T>(m: Matcher<T>): MatcherFN<T> {
   if (isCallable(m)) return m;
 
-  if (hasProp(m, 'match') && isCallable(m.match)) {
+  const isComplexObject = ['function', 'object'].includes(typeof m);
+
+  if (isComplexObject && hasProp(m, 'match') && isCallable(m.match)) {
     return m.match;
   }
 

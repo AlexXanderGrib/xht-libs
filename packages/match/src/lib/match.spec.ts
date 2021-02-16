@@ -21,7 +21,7 @@ describe('Matcher', () => {
   });
 
   test('Matcher', () => {
-    class Test1 {
+    class Matchable {
       static match(subject) {
         return (
           typeof subject === 'object' && subject && subject instanceof this
@@ -29,7 +29,11 @@ describe('Matcher', () => {
       }
     }
 
-    class Test2 extends Test1 {}
+    class Test1 extends Matchable {}
+    class Test2 extends Matchable {}
+
+    Test1.match = Test1.match.bind(Test1);
+    Test2.match = Test2.match.bind(Test2);
 
     const matcher = createMatcher<any, any>([
       [Test2, 2],
