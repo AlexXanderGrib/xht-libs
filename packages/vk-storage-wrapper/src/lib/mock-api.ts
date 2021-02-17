@@ -1,3 +1,4 @@
+import { Subscribeable } from './subscribeable';
 import {
   GetKeysParams,
   GetKeysResponse,
@@ -7,17 +8,23 @@ import {
   VkApiStorage,
 } from './types';
 
+type MockApiEvents =
+  | { type: 'getKeys'; user_id?: number }
+  | { type: 'get'; keys: string[]; user_id?: number }
+  | { type: 'set'; key: string; value: string; user_id?: number };
+
 export class MockStorageDomain implements VkApiStorage {
-  private readonly _storage = new Map<number, Map<string, string>>();
+  public readonly storage = new Map<number, Map<string, string>>();
+  public readonly events = new Subscribeable<MockApiEvents>();
 
   private _getStorage(userId = 0) {
-    if (this._storage.has(userId)) {
-      return this._storage.get(userId) as Map<string, string>;
+    if (this.storage.has(userId)) {
+      return this.storage.get(userId) as Map<string, string>;
     }
 
     const storage = new Map<string, string>();
 
-    this._storage.set(userId, storage);
+    this.storage.set(userId, storage);
     return storage;
   }
 
@@ -25,6 +32,11 @@ export class MockStorageDomain implements VkApiStorage {
     const start = params.offset ?? 0;
     const end = start + (params.count ?? 100);
     const keys = this._getStorage(params.user_id).keys();
+
+    this.events.emit({
+      type: 'getKeys',
+      user_id: params.user_id,
+    });
 
     return [...keys].slice(start, end);
   }
@@ -34,6 +46,12 @@ export class MockStorageDomain implements VkApiStorage {
     const keys = Array.isArray(params.keys)
       ? params.keys
       : params.keys?.split(',') ?? [params.key];
+    this.events.emit({
+      type: 'get',
+      keys,
+      user_id: params.user_id,
+    });
+
     const results: GetResponse = [];
 
     for (const key of keys) {
@@ -47,6 +65,13 @@ export class MockStorageDomain implements VkApiStorage {
 
   async set(params: SetParams): Promise<1> {
     const storage = this._getStorage(params.user_id);
+
+    this.events.emit({
+      type: 'set',
+      key: params.key,
+      value: params.value,
+      user_id: params.user_id,
+    });
 
     if (params.value) {
       storage.set(params.key, params.value);

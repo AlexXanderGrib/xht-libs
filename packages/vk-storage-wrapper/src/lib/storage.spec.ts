@@ -1,14 +1,15 @@
+import { createAPIFromStorageDomain } from './create-api';
 import { MockStorageDomain } from './mock-api';
 import { MockStorage } from './mock-storage';
 import { Storage } from './storage';
-import type { IStorage, VkApi } from './types';
+import type { IStorage } from './types';
 
 describe('VK Storage Mocks', () => {
   const _ = <T>(
     action: (storage: IStorage) => Promise<T>,
     compare: (r1: T, r2: T) => void
   ) => {
-    const api: VkApi = { storage: new MockStorageDomain() };
+    const api = createAPIFromStorageDomain(new MockStorageDomain());
     const storage1 = new Storage(api);
     const storage2 = new MockStorage();
 

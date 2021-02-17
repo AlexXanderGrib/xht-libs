@@ -2,12 +2,15 @@ import { AbstractStorage } from './abstract-storage';
 import { VkApi } from './types';
 
 export class Storage extends AbstractStorage {
-  constructor(private readonly _api: VkApi, public readonly userId?: number) {
+  private readonly _api: VkApi;
+
+  constructor(api: VkApi, public readonly userId?: number) {
     super();
+    this._api = api;
   }
 
   public async getKeys(): Promise<string[]> {
-    return await this._api.storage.getKeys({ user_id: this.userId });
+    return this._api.storage.getKeys({ user_id: this.userId });
   }
 
   public async get(key: string): Promise<string> {
