@@ -119,5 +119,7 @@ describe('Balance', () => {
 
   test('withCurrency', () => {
     const b = new Balance(10).withCurrency(Currency);
+
+    expect(b.toString()).toBe(new Currency(10).toString());
   });
 });
