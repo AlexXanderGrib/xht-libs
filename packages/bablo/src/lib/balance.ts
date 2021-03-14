@@ -1,4 +1,9 @@
 import { sub, sum } from '@xxhax/safe-math';
+import {
+  ICurrency,
+  ICurrencyConstructor,
+  ICurrencyPrimitive,
+} from './currency';
 
 export type Transaction = {
   amount: number;
@@ -6,14 +11,35 @@ export type Transaction = {
   description?: string;
 };
 
-export interface BalanceDTO {
+export interface BalanceDTOWithoutTransactions {
+  readonly type: 'pure';
+  /** Total income */
   readonly income: number;
+  /** Total spent */
   readonly spent: number;
+  /** `income` - `spent` */
   readonly value: number;
-  readonly transactions?: ReadonlyArray<Transaction>;
 }
 
-export interface ReadonlyBalance extends BalanceDTO {
+export interface BalanceDTOWithTransactions {
+  readonly type: 'with_transactions';
+  /** Initial income */
+  readonly income: number;
+  /** Initial spent */
+  readonly spent: number;
+  /** All saved transactions */
+  readonly transactions: ReadonlyArray<Transaction>;
+  /**
+   * `income + spent + transactions.reduce((a, b) => a + b, 0);`
+   * */
+  readonly value: number;
+}
+
+export type BalanceDTO =
+  | BalanceDTOWithTransactions
+  | BalanceDTOWithoutTransactions;
+
+export interface ReadonlyBalance extends BalanceDTOWithTransactions {
   isAffordable(amount: number): boolean;
   onlyTransactions(): ReadonlyBalance;
   flat(): ReadonlyBalance;
@@ -22,8 +48,21 @@ export interface ReadonlyBalance extends BalanceDTO {
   resolved(): ReadonlyBalance;
 }
 
-export interface IBalance extends ReadonlyBalance {
-  readonly transactions: Transaction[];
+export interface FunctionalBalance extends ReadonlyBalance {
+  map(fn: (value: number) => number): FunctionalBalance;
+  asyncMap(fn: (value: number) => Promise<number>): Promise<FunctionalBalance>;
+}
+
+interface WithCurrency {
+  readonly currency: ICurrencyConstructor;
+
+  toCurrency(): ICurrency;
+  toString(): string;
+  [Symbol.toPrimitive](hint: 'string' | 'number' | 'default'): string | number;
+}
+
+export interface IBalance extends FunctionalBalance {
+  readonly transactions: ReadonlyArray<Transaction>;
 
   push(amount: number, description?: string): this;
   add(amount: number, description?: string): this;
@@ -37,27 +76,57 @@ export interface IBalance extends ReadonlyBalance {
   resolved(): IBalance;
 
   toJSON(): BalanceDTO;
+  valueOf(): number;
 }
 
-export class Balance implements IBalance {
-  public static fromDTO(dto: BalanceDTO) {
-    if (dto.transactions?.length > 0) {
-      const b = new this();
+export interface IBalanceWithCurrency extends IBalance, WithCurrency {}
 
-      dto.transactions.forEach((t) => b.transactions.push(t));
+export class Balance implements IBalance {
+  public static get ZERO() {
+    return new this();
+  }
+
+  public static from(value: number) {
+    return new this(value);
+  }
+
+  public static fromDTO(dto: BalanceDTO) {
+    if (dto.type === 'with_transactions') {
+      const b = new this(dto.income, dto.spent);
+
+      (dto.transactions || []).forEach((t) => b.transactions.push(t));
+      return b;
     }
 
     return new this(dto.income, dto.spent);
   }
 
   public readonly transactions: Transaction[] = [];
+  public readonly type = 'with_transactions';
+  public readonly currency!: ICurrencyConstructor;
 
-  private readonly _income: number = 0;
-  private readonly _spent: number = 0;
+  protected readonly _income: number = 0;
+  protected readonly _spent: number = 0;
 
   constructor(income = 0, spent = 0) {
     this._income = income;
     this._spent = spent;
+  }
+  public map(fn: (value: number) => number): FunctionalBalance {
+    const currentValue = this.value;
+    const newValue = fn(currentValue);
+
+    const diff = -sub(currentValue, newValue);
+    return this.afterTransaction(diff);
+  }
+  public async asyncMap(
+    fn: (value: number) => Promise<number>
+  ): Promise<FunctionalBalance> {
+    const currentValue = this.value;
+    const newValue = await fn(currentValue);
+
+    const diff = -sub(currentValue, newValue);
+    return this.afterTransaction(diff);
   }
 
   public mergeWith(other: IBalance) {
@@ -96,13 +165,13 @@ export class Balance implements IBalance {
     return new Balance(this._income, this._spent);
   }
 
-  private get _transactionsIncome() {
+  protected get _transactionsIncome() {
     return this.transactions
       .filter((t) => t.amount >= 0)
       .reduce((a, t) => sum(a, t.amount), 0);
   }
 
-  private get _transactionsSpent() {
+  protected get _transactionsSpent() {
     return this.transactions
       .filter((t) => t.amount < 0)
       .reduce((a, t) => sub(a, t.amount), 0); // sub(0, -1) == sum(0, 1)
@@ -134,14 +203,63 @@ export class Balance implements IBalance {
   public afterTransaction(amount: number) {
     return this.flat().push(amount);
   }
-
   public toJSON(): BalanceDTO {
-    return {
-      income: this.income,
-      spent: this.spent,
-      value: this.value,
-      transactions:
-        this.transactions.length > 0 ? this.transactions : undefined,
-    };
+    return this.transactions.length > 0
+      ? ({
+          income: this._income,
+          spent: this._spent,
+          value: this.value,
+          transactions: this.transactions,
+          type: 'with_transactions',
+        } as BalanceDTOWithTransactions)
+      : ({
+          income: this.income,
+          spent: this.spent,
+          value: this.value,
+          type: 'pure',
+        } as BalanceDTOWithoutTransactions);
+  }
+
+  public valueOf() {
+    return this.value;
+  }
+
+  [Symbol.toPrimitive](): string | number {
+    return this.valueOf();
+  }
+
+  get [Symbol.toStringTag]() {
+    return 'Balance';
+  }
+
+  withCurrency(currency: ICurrencyConstructor) {
+    return new BalanceWithCurrency(currency, this.income, this.spent);
+  }
+}
+
+export class BalanceWithCurrency
+  extends Balance
+  implements IBalanceWithCurrency, ICurrencyPrimitive {
+  constructor(
+    public readonly currency: ICurrencyConstructor,
+    income = 0,
+    spent = 0
+  ) {
+    super(income, spent);
+  }
+
+  toCurrency() {
+    return new this.currency(this.value);
+  }
+
+  toString() {
+    return this.toCurrency().toString();
+  }
+
+  [Symbol.toPrimitive](
+    hint: 'string' | 'number' | 'default' = 'default'
+  ): string | number {
+    if (hint === 'number') return this.valueOf();
+    return this.toString();
   }
 }

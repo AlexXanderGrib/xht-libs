@@ -1,4 +1,7 @@
-export function createFormatter(currency = 'USD', locales: string[] = ['en']) {
+export function createFormatter(
+  currency = 'USD',
+  locales: string[] = ['en-US']
+) {
   try {
     const formatter = new Intl.NumberFormat(locales, {
       currency,
