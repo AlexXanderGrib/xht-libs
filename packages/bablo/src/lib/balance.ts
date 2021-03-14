@@ -68,6 +68,8 @@ export interface IBalance extends FunctionalBalance {
   add(amount: number, description?: string): this;
   subtract(amount: number, description?: string): this;
   mergeWith(other: IBalance): this;
+  map(fn: (value: number) => number): IBalance;
+  asyncMap(fn: (value: number) => Promise<number>): Promise<IBalance>;
 
   onlyTransactions(): IBalance;
   flat(): IBalance;
@@ -81,7 +83,18 @@ export interface IBalance extends FunctionalBalance {
   withCurrency(currency: ICurrencyConstructor): IBalanceWithCurrency;
 }
 
-export interface IBalanceWithCurrency extends IBalance, WithCurrency {}
+export interface IBalanceWithCurrency extends IBalance, WithCurrency {
+  map(fn: (value: number) => number): IBalanceWithCurrency;
+  asyncMap(
+    fn: (value: number) => Promise<number>
+  ): Promise<IBalanceWithCurrency>;
+
+  onlyTransactions(): IBalanceWithCurrency;
+  flat(): IBalanceWithCurrency;
+  afterTransaction(amount: number): IBalanceWithCurrency;
+  initial(): IBalanceWithCurrency;
+  resolved(): IBalanceWithCurrency;
+}
 
 export class Balance implements IBalance {
   public static get ZERO() {
@@ -105,7 +118,6 @@ export class Balance implements IBalance {
 
   public readonly transactions: Transaction[] = [];
   public readonly type = 'with_transactions';
-  public readonly currency!: ICurrencyConstructor;
 
   protected readonly _income: number = 0;
   protected readonly _spent: number = 0;
@@ -114,16 +126,14 @@ export class Balance implements IBalance {
     this._income = income;
     this._spent = spent;
   }
-  public map(fn: (value: number) => number): FunctionalBalance {
+  public map(fn: (value: number) => number) {
     const currentValue = this.value;
     const newValue = fn(currentValue);
 
     const diff = -sub(currentValue, newValue);
     return this.afterTransaction(diff);
   }
-  public async asyncMap(
-    fn: (value: number) => Promise<number>
-  ): Promise<FunctionalBalance> {
+  public async asyncMap(fn: (value: number) => Promise<number>) {
     const currentValue = this.value;
     const newValue = await fn(currentValue);
 
@@ -248,6 +258,35 @@ export class BalanceWithCurrency
     spent = 0
   ) {
     super(income, spent);
+  }
+
+  public map(fn: (value: number) => number) {
+    return super.map(fn).withCurrency(this.currency);
+  }
+  public async asyncMap(fn: (value: number) => Promise<number>) {
+    return super
+      .asyncMap(fn)
+      .then((balance) => balance.withCurrency(this.currency));
+  }
+
+  public resolved() {
+    return super.resolved().withCurrency(this.currency);
+  }
+
+  public initial() {
+    return super.initial().withCurrency(this.currency);
+  }
+
+  public onlyTransactions() {
+    return super.onlyTransactions().withCurrency(this.currency);
+  }
+
+  public flat() {
+    return super.flat().withCurrency(this.currency);
+  }
+
+  public afterTransaction(amount: number) {
+    return this.flat().push(amount);
   }
 
   toCurrency() {
