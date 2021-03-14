@@ -77,6 +77,8 @@ export interface IBalance extends FunctionalBalance {
 
   toJSON(): BalanceDTO;
   valueOf(): number;
+
+  withCurrency(currency: ICurrencyConstructor): IBalanceWithCurrency;
 }
 
 export interface IBalanceWithCurrency extends IBalance, WithCurrency {}
