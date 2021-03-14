@@ -36,10 +36,9 @@ describe('Matcher', () => {
     Test2.match = Test2.match.bind(Test2);
 
     const matcher = createMatcher<any, any>([
+      ['a', 'b'],
       [Test2, 2],
       [Test1, 1],
-
-      ['a', 'b'],
     ]);
 
     expect(matcher(new Test1())).toBe(1);

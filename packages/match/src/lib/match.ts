@@ -10,7 +10,7 @@ export function createTMatcher<T extends Record<any, any>>(mapping: T) {
   // Types are so scary
   return <S extends keyof any>(
     subject: S
-  ): S extends keyof T ? T[S] : unknown => mapping[subject as keyof T];
+  ): S extends keyof T ? T[S] : undefined => mapping[subject as keyof T];
 }
 
 type MatcherFN<Subject> = (something: Subject) => boolean;
@@ -29,7 +29,7 @@ function useMatcher<T>(m: Matcher<T>): MatcherFN<T> {
     return m.match;
   }
 
-  return (something) => something === m;
+  return (something) => Object.is(something, m);
 }
 
 export function createMatcher<K extends keyof any, V>(mapping: Mapping<K, V>) {
