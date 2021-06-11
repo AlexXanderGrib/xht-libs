@@ -1,4 +1,4 @@
-import { Subscribeable } from './subscribeable';
+import { EventBus } from '@xxhax/events';
 import {
   GetKeysParams,
   GetKeysResponse,
@@ -15,7 +15,7 @@ type MockApiEvents =
 
 export class MockStorageDomain implements VkApiStorage {
   public readonly storage = new Map<number, Map<string, string>>();
-  public readonly events = new Subscribeable<MockApiEvents>();
+  public readonly events = new EventBus<MockApiEvents>();
 
   private _getStorage(userId = 0) {
     if (this.storage.has(userId)) {

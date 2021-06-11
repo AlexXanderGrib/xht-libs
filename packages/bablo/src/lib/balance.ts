@@ -80,6 +80,8 @@ export interface IBalance extends FunctionalBalance {
   toJSON(): BalanceDTO;
   valueOf(): number;
 
+  diffWith(value: number): IBalance;
+
   withCurrency(currency: ICurrencyConstructor): IBalanceWithCurrency;
 }
 
@@ -94,6 +96,7 @@ export interface IBalanceWithCurrency extends IBalance, WithCurrency {
   afterTransaction(amount: number): IBalanceWithCurrency;
   initial(): IBalanceWithCurrency;
   resolved(): IBalanceWithCurrency;
+  diffWith(value: number): IBalanceWithCurrency;
 }
 
 export class Balance implements IBalance {
@@ -101,7 +104,7 @@ export class Balance implements IBalance {
     return new this();
   }
 
-  public static from(value: number) {
+  public static of(value: number) {
     return new this(value);
   }
 
@@ -215,6 +218,11 @@ export class Balance implements IBalance {
   public afterTransaction(amount: number) {
     return this.flat().push(amount);
   }
+
+  public diffWith(value: number) {
+    return Balance.of(sub(this.value, value));
+  }
+
   public toJSON(): BalanceDTO {
     return this.transactions.length > 0
       ? ({
@@ -287,6 +295,10 @@ export class BalanceWithCurrency
 
   public afterTransaction(amount: number) {
     return this.flat().push(amount);
+  }
+
+  public diffWith(value: number) {
+    return super.diffWith(value).withCurrency(this.currency);
   }
 
   toCurrency() {

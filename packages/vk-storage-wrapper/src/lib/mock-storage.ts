@@ -1,5 +1,5 @@
+import { EventBus } from '@xxhax/events';
 import { AbstractStorage } from './abstract-storage';
-import { Subscribeable } from './subscribeable';
 
 type MockStorageEvents =
   | { type: 'get'; keys: string[] }
@@ -10,7 +10,7 @@ type MockStorageEvents =
 
 export class MockStorage extends AbstractStorage {
   public readonly data = new Map<string, string>();
-  public readonly events = new Subscribeable<MockStorageEvents>();
+  public readonly events = new EventBus<MockStorageEvents>();
 
   async getKeys(): Promise<string[]> {
     this.events.emit({ type: 'getKeys' });

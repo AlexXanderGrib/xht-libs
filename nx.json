@@ -24,7 +24,14 @@
     "validators": { "tags": [] },
     "vk-storage-wrapper": { "tags": [] },
     "time": { "tags": [] },
-    "emoji": { "tags": [] }
+    "emoji": { "tags": [] },
+    "events": { "tags": [] },
+    "lists": { "tags": [] },
+    "queues": { "tags": [] },
+    "strings": { "tags": [] },
+    "remote-object": { "tags": [] },
+    "payment-abstractions": { "tags": [] },
+    "user-agent-parser": { "tags": [] }
   },
   "workspaceLayout": { "appsDir": "packages", "libsDir": "packages" }
 }

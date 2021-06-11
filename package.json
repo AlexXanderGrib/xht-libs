@@ -28,7 +28,8 @@
   "private": true,
   "dependencies": {
     "node-fetch": "^2.6.1",
-    "runtypes": "^5.0.1"
+    "runtypes": "^5.0.1",
+    "sweet-decorators": "^1.8.0"
   },
   "devDependencies": {
     "@nrwl/cli": "11.2.12",

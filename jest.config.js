@@ -9,5 +9,13 @@ module.exports = {
     '<rootDir>/packages/vk-storage-wrapper',
     '<rootDir>/packages/time',
     '<rootDir>/packages/emoji',
+    '<rootDir>/packages/events',
+    '<rootDir>/packages/lists',
+    '<rootDir>/packages/queues',
+    '<rootDir>/packages/strings',
+    '<rootDir>/packages/remote-object',
+    '<rootDir>/packages/payment-abstractions',
+    '<rootDir>/packages/user-agent-parser',
+    '<rootDir>/packages/botkit',
   ],
 };

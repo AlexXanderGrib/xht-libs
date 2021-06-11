@@ -1,5 +1,6 @@
 export * from './callable';
 export * from './class';
-export * from './has-prop';
+export * from './date';
 export * from './number';
 export * from './object';
+export * from './props';

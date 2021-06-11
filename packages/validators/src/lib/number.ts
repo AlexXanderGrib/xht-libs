@@ -3,15 +3,22 @@ const nt = Symbol('NUMBER_TYPE');
 type Int = number & { [nt]?: 'int' };
 type Bigint = bigint & { [nt]?: 'bigint' };
 type Float = number & { [nt]?: 'float' };
-export function isNumber(n): n is number {
+type Num = Int | Float;
+type AnyNum = Num | Bigint;
+type AnyInt = Int | Bigint;
+export function isNumber(n: unknown): n is Num {
   return typeof n === 'number' && !Number.isNaN(n);
 }
 
-export function isFiniteNumber(n): n is Int {
+export function isNumberOrBigInt(n: unknown): n is AnyNum {
+  return isNumber(n) || isBigInt(n);
+}
+
+export function isFiniteNumber(n: unknown): n is Int {
   return isNumber(n) && Number.isFinite(n);
 }
 
-export function isInteger(n): n is Bigint | Int {
+export function isInteger(n: unknown): n is AnyInt {
   if (Number.isNaN(n)) {
     return false;
   }
@@ -21,11 +28,11 @@ export function isInteger(n): n is Bigint | Int {
   return isFiniteNumber(n) && Number.isInteger(n);
 }
 
-export function isBigInt(n): n is bigint {
+export function isBigInt(n: unknown): n is Bigint {
   return typeof n === 'bigint';
 }
 
-export function isFloat(n): n is Float {
+export function isFloat(n: unknown): n is Float {
   return isFiniteNumber(n) && !Number.isInteger(n);
 }
 

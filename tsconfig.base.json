@@ -23,7 +23,17 @@
       "@xxhax/validators": ["packages/validators/src/index.ts"],
       "@xxhax/vk-storage-wrapper": ["packages/vk-storage-wrapper/src/index.ts"],
       "@xxhax/time": ["packages/time/src/index.ts"],
-      "@xxhax/emoji": ["packages/emoji/src/index.ts"]
+      "@xxhax/emoji": ["packages/emoji/src/index.ts"],
+      "@xxhax/events": ["packages/events/src/index.ts"],
+      "@xxhax/lists": ["packages/lists/src/index.ts"],
+      "@xxhax/queues": ["packages/queues/src/index.ts"],
+      "@xxhax/strings": ["packages/strings/src/index.ts"],
+      "@xxhax/remote-object": ["packages/remote-object/src/index.ts"],
+      "@xxhax/payment-abstractions": [
+        "packages/payment-abstractions/src/index.ts"
+      ],
+      "@xxhax/user-agent-parser": ["packages/user-agent-parser/src/index.ts"],
+      "@xxhax/botkit": ["packages/botkit/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

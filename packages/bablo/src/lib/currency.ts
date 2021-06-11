@@ -34,7 +34,7 @@ export class Currency implements ICurrency {
   }
 
   public static isCurrencyConstructor(
-    something
+    something: unknown
   ): something is ICurrencyConstructor {
     if (!isClass(something)) return false;
     if (!(hasProp(something, 'sign') && typeof something.sign === 'string'))
